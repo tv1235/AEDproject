@@ -4,25 +4,14 @@
  */
 package userinterface.ReliefWorkerRole;
 
-import userinterface.DoctorRole.*;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Organization.FoodOrganization;
 import Business.Organization.InventoryManagerOrganization;
-import Business.Organization.LabOrganization;
-import Business.Organization.MedicalOrganization;
 import Business.Organization.Organization;
-import Business.Organization.ShelterOrganization;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.FoodSupplyWorkRequest;
-import Business.WorkQueue.LabTestWorkRequest;
-import Business.WorkQueue.MedicalSupplyWorkRequest;
 import Business.WorkQueue.ShelterAllocationWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -36,18 +25,25 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private Organization organization;
+    private WorkRequest request;
 
     /**
      * Creates new form RequestSupplyJPanel
      */
-    public RequestShelterJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public RequestShelterJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, WorkRequest request) {
         initComponents();
 
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = account;
         this.organization = organization;
+        this.request = request;
         valueLabel.setText(enterprise.getName());
+
+        if (request != null) {
+            refugeeIDJTextField.setText(request.getRefugeeIds());
+            countJTextField.setText("" + request.getCount());
+        }
     }
 
     /**
@@ -74,6 +70,7 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         requestTestJButton.setText("Create Request");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,10 +79,13 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
         });
         add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
-        jLabel1.setText("Required No of Accomodation:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 210, -1));
+        jLabel1.setText("Count:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 50, -1));
+
+        countJTextField.setEnabled(false);
         add(countJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 120, -1));
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +107,7 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
         refugeeIDJTextField.setEnabled(false);
         add(refugeeIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 120, -1));
 
+        searchRefugee.setBackground(new java.awt.Color(248, 249, 249));
         searchRefugee.setText("Search");
         searchRefugee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,33 +117,37 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
         add(searchRefugee, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 110, -1));
 
         jLabel3.setText("Description:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 210, -1));
-        add(messageJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 120, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 90, -1));
+        add(messageJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        String requiredMeals = countJTextField.getText();
+        /*String requiredMeals = countJTextField.getText();
         int count = 0;
         if (!requiredMeals.trim().isEmpty()) {
             count = Integer.parseInt(requiredMeals) <= 0 ? 0 : Integer.parseInt(requiredMeals);
-        }
+        }*/
         String message = messageJTextField.getText();
-        WorkRequest request = null;
         Organization org = null;
 
-        request = new ShelterAllocationWorkRequest();
+        if (request == null) {
+            JOptionPane.showMessageDialog(null, "Search and add refugee Ids", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             if (organization instanceof InventoryManagerOrganization) {
                 org = organization;
                 break;
             }
         }
-        request.setCount(count);
+        request.getSubscribedEmails().add(userAccount.getEmail());
         request.setMessage(message);
         request.setSender(userAccount);
         request.setStatus("Sent");
         if (org != null) {
             org.getWorkQueue().getWorkRequestList().add(request);
+            EcoSystem.sendmail(userAccount.getEmail(), message+"-" +request.getStatus());
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
     }//GEN-LAST:event_requestTestJButtonActionPerformed
@@ -158,7 +163,9 @@ public class RequestShelterJPanel extends javax.swing.JPanel {
     private void searchRefugeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRefugeeActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise));
+        WorkRequest shelRequest = new ShelterAllocationWorkRequest();
+        shelRequest.setRefugeeIds("");
+        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise, shelRequest));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_searchRefugeeActionPerformed
 

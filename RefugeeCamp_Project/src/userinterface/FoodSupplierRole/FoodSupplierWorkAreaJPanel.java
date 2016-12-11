@@ -5,14 +5,16 @@
  */
 package userinterface.FoodSupplierRole;
 
-import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.RefugeeCampEnterprise;
+import Business.Network.Network;
 import Business.Organization.FoodOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.FoodSupplyWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class FoodSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private Network network;
     private UserAccount userAccount;
     private FoodOrganization organization;
     
@@ -30,11 +33,12 @@ public class FoodSupplierWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form FoodWorkerWorkAreaJPanel
      */
-    public FoodSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public FoodSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.enterprise = enterprise;
+        this.network = network;
         this.organization = (FoodOrganization)organization;
         
         populateTable();
@@ -105,54 +109,51 @@ public void populateTable(){
         });
         jScrollPane1.setViewportView(workRequestJTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 58, 510, 100));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 510, 100));
 
+        assignJButton.setBackground(new java.awt.Color(248, 249, 249));
         assignJButton.setText("Assign to me");
         assignJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+        jPanel1.add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
+        processJButton.setBackground(new java.awt.Color(248, 249, 249));
         processJButton.setText("Process");
         processJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 processJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        jPanel1.add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, -1, -1));
 
+        refreshJButton.setBackground(new java.awt.Color(248, 249, 249));
         refreshJButton.setText("Refresh");
         refreshJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, -1));
+        jPanel1.add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
 
         jLabel1.setText("Food Request:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -165,6 +166,12 @@ public void populateTable(){
         }
 
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getStatus().equalsIgnoreCase("completed") || request.getStatus().equalsIgnoreCase("Supplier -> Inventory")) {
+            JOptionPane.showMessageDialog(null, "Request already processed", "Error", JOptionPane.ERROR_MESSAGE);
+            populateTable();
+            return;
+        }
+        request.getSubscribedEmails().add(userAccount.getEmail());
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
@@ -180,11 +187,28 @@ public void populateTable(){
         }
 
         FoodSupplyWorkRequest request = (FoodSupplyWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-
+        if (request.getStatus().equalsIgnoreCase("completed") || request.getStatus().equalsIgnoreCase("Supplier -> Inventory")) {
+            JOptionPane.showMessageDialog(null, "Request already processed", "Error", JOptionPane.ERROR_MESSAGE);
+            populateTable();
+            return;
+        }
         request.setReceiver(userAccount);
         request.setStatus("processing");
+        
+        RefugeeCampEnterprise refugeeEnterprise = null;
+        for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
+            if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.RefugeeCamp)) {
+                refugeeEnterprise = (RefugeeCampEnterprise) e;
+                break;
+            }
+        }
+        if (refugeeEnterprise == null) {
+            JOptionPane.showMessageDialog(null, "Refugee Camp Enterprise is not available", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
 
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, organization, enterprise, request);
+        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, organization, refugeeEnterprise, request);
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

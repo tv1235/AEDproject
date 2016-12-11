@@ -4,6 +4,7 @@
  */
 package userinterface.ReliefWorkerRole;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.InventoryManagerOrganization;
 import Business.Organization.Organization;
@@ -11,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.MedicalSupplyWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -23,18 +25,24 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private Organization organization;
+    private WorkRequest request;
 
     /**
      * Creates new form RequestSupplyJPanel
      */
-    public RequestMedicalJPanel(JPanel userProcessContainer, UserAccount UserAccount, Organization organization, Enterprise enterprise) {
+    public RequestMedicalJPanel(JPanel userProcessContainer, UserAccount UserAccount, Organization organization, Enterprise enterprise, WorkRequest request) {
         initComponents();
 
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = UserAccount;
         this.organization = organization;
+        this.request = request;
         valueLabel.setText(enterprise.getName());
+        if (request != null) {
+            refugeeIDJTextField.setText(request.getRefugeeIds());
+            countJTextField.setText("" + request.getCount());
+        }
     }
 
     /**
@@ -61,6 +69,7 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         requestTestJButton.setText("Create Request");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,9 +79,17 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
         add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         jLabel1.setText("Count:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 90, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 50, -1));
+
+        countJTextField.setEnabled(false);
+        countJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countJTextFieldActionPerformed(evt);
+            }
+        });
         add(countJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 120, -1));
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +111,7 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
         refugeeIDJTextField.setEnabled(false);
         add(refugeeIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 120, -1));
 
+        searchRefugee.setBackground(new java.awt.Color(248, 249, 249));
         searchRefugee.setText("Search");
         searchRefugee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,29 +127,33 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
 
-        String requiredMedikits = countJTextField.getText();
+        /*String requiredMedikits = countJTextField.getText();
+
         int count = 0;
         if (!requiredMedikits.trim().isEmpty()) {
             count = Integer.parseInt(requiredMedikits) <= 0 ? 0 : Integer.parseInt(requiredMedikits);
+        }*/
+        if (request == null) {
+            JOptionPane.showMessageDialog(null, "Search and add refugee Ids", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         String message = messageJTextField.getText();
-        WorkRequest request = null;
         Organization org = null;
 
-        request = new MedicalSupplyWorkRequest();
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             if (organization instanceof InventoryManagerOrganization) {
                 org = organization;
                 break;
             }
         }
+        request.getSubscribedEmails().add(userAccount.getEmail());
         request.setMessage(message);
         request.setSender(userAccount);
-        request.setCount(count);
         request.setStatus("Sent");
         if (org != null) {
             org.getWorkQueue().getWorkRequestList().add(request);
+            EcoSystem.sendmail(userAccount.getEmail(), message+"-" +request.getStatus());
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
     }//GEN-LAST:event_requestTestJButtonActionPerformed
@@ -147,9 +169,15 @@ public class RequestMedicalJPanel extends javax.swing.JPanel {
     private void searchRefugeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRefugeeActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise));
+        WorkRequest medRequest = new MedicalSupplyWorkRequest();
+        medRequest.setRefugeeIds("");
+        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise, medRequest));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_searchRefugeeActionPerformed
+
+    private void countJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_countJTextFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;

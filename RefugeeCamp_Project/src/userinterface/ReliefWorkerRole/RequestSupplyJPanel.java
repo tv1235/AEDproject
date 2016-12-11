@@ -36,12 +36,13 @@ public class RequestSupplyJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Organization organization;
     private UserAccount userAccount;
+
     /**
      * Creates new form RequestSupplyJPanel
      */
     public RequestSupplyJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
         initComponents();
-        
+
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = account;
@@ -69,6 +70,7 @@ public class RequestSupplyJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         requestTestJButton.setText("Create Request");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +79,7 @@ public class RequestSupplyJPanel extends javax.swing.JPanel {
         });
         add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, -1, -1));
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,26 +120,25 @@ public class RequestSupplyJPanel extends javax.swing.JPanel {
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
 
-       // String message = messageJTextField.getText();
+        // String message = messageJTextField.getText();
         WorkRequest request = null;
-        Organization org = null;      
-        
+        Organization org = null;
+
         if (foodRBtn.isSelected()) {
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestFoodJPanel", new RequestFoodJPanel(userProcessContainer, userAccount, organization, enterprise));
-        layout.next(userProcessContainer);
-        
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("RequestFoodJPanel", new RequestFoodJPanel(userProcessContainer, userAccount, organization, enterprise, null));
+            layout.next(userProcessContainer);
+
         } else if (ShelterRBtn.isSelected()) {
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestShelterJPanel", new RequestShelterJPanel(userProcessContainer, userAccount, organization, enterprise));
+            userProcessContainer.add("RequestShelterJPanel", new RequestShelterJPanel(userProcessContainer, userAccount, organization, enterprise, null));
             layout.next(userProcessContainer);
         } else if (medicalRBtn.isSelected()) {
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestMedicalJPanel", new RequestMedicalJPanel(userProcessContainer, userAccount, organization, enterprise));
+            userProcessContainer.add("RequestMedicalJPanel", new RequestMedicalJPanel(userProcessContainer, userAccount, organization, enterprise, null));
             layout.next(userProcessContainer);
-        }
-        else {
-            JOptionPane.showMessageDialog (null, "Please select a Request radio button", "Warning",JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a Request radio button", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
     }//GEN-LAST:event_requestTestJButtonActionPerformed

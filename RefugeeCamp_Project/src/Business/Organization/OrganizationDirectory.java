@@ -31,19 +31,19 @@ public class OrganizationDirectory {
         else if (type.getValue().equals(Type.Lab.getValue())){
             organization = new LabOrganization();
         }
-        else if (type.getValue().equals(Type.FoodOrg.getValue())){
+        else if (type.getValue().equals(Type.FoodOrganization.getValue())){
             organization = new FoodOrganization();
         }
-        else if (type.getValue().equals(Type.ShelterOrg.getValue())){
+        else if (type.getValue().equals(Type.ShelterOrganization.getValue())){
             organization = new ShelterOrganization();
         }
-        else if (type.getValue().equals(Type.MedicalOrg.getValue())){
+        else if (type.getValue().equals(Type.MedicalOrganization.getValue())){
             organization = new MedicalOrganization();
         }
-        else if (type.getValue().equals(Type.ReliefWorkerOrg.getValue())){
+        else if (type.getValue().equals(Type.ReliefWorkerOrganization.getValue())){
             organization = new ReliefWorkerOrganization();
         }
-        else if (type.getValue().equals(Type.InventoryManagerOrg.getValue())){
+        else if (type.getValue().equals(Type.InventoryManagerOrganization.getValue())){
             organization = new InventoryManagerOrganization();
         }
          organizationList.add(organization);

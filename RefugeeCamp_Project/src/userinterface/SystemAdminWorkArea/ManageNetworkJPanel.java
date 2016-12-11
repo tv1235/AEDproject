@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.SystemAdminWorkArea;
+package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
 import Business.Network.Network;
@@ -94,6 +94,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Network:");
 
+        submitJButton.setBackground(new java.awt.Color(248, 249, 249));
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +102,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

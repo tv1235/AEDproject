@@ -16,6 +16,7 @@ public class UserAccount {
     
     private String username;
     private String password;
+    private String email;
     private Employee employee;
     private Role role;
     private WorkQueue workQueue;
@@ -34,6 +35,14 @@ public class UserAccount {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getPassword() {
         return password;
     }

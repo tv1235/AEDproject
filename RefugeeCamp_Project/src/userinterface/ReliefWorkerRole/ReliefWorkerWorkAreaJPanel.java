@@ -15,6 +15,7 @@ import Business.WorkQueue.MedicalSupplyWorkRequest;
 import Business.WorkQueue.ShelterAllocationWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +42,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = (RefugeeCampEnterprise) enterprise;
         this.userAccount = userAccount;
+        valueLabel.setText(enterprise.getName());
         populateRefugeeTable();
         populateRequestTable();
     }
@@ -104,6 +106,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         refugeejTable = new javax.swing.JTable();
         createRefugeeButton = new javax.swing.JButton();
         refreshRefugeeTableJButton = new javax.swing.JButton();
+        showPhotoButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         enterpriseLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -111,6 +114,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         requestTestJButton = new javax.swing.JButton();
         valueLabel = new javax.swing.JLabel();
+        photoLbl = new javax.swing.JLabel();
 
         enterpriseLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel1.setText("Refugee Details:");
@@ -123,6 +127,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        searchButton.setBackground(new java.awt.Color(248, 249, 249));
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +149,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(refugeejTable);
 
+        createRefugeeButton.setBackground(new java.awt.Color(248, 249, 249));
         createRefugeeButton.setText("Create Refugee");
         createRefugeeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,10 +157,19 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        refreshRefugeeTableJButton.setBackground(new java.awt.Color(248, 249, 249));
         refreshRefugeeTableJButton.setText("Refresh");
         refreshRefugeeTableJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshRefugeeTableJButtonActionPerformed(evt);
+            }
+        });
+
+        showPhotoButton.setBackground(new java.awt.Color(248, 249, 249));
+        showPhotoButton.setText("Show Photo");
+        showPhotoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPhotoButtonActionPerformed(evt);
             }
         });
 
@@ -171,6 +186,8 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(createRefugeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117)
+                .addComponent(showPhotoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refreshRefugeeTableJButton))
         );
@@ -187,7 +204,8 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createRefugeeButton)
-                    .addComponent(refreshRefugeeTableJButton))
+                    .addComponent(refreshRefugeeTableJButton)
+                    .addComponent(showPhotoButton))
                 .addGap(36, 36, 36))
         );
 
@@ -228,6 +246,7 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        refreshTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,7 +254,8 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        requestTestJButton.setText("Create Request ");
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
+        requestTestJButton.setText("Create Inventory Request ");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -249,17 +269,16 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(requestTestJButton)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(refreshTestJButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refreshTestJButton))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(requestTestJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -284,17 +303,25 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138)
+                        .addComponent(photoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(709, Short.MAX_VALUE))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(photoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(84, Short.MAX_VALUE))
@@ -354,6 +381,15 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
         populateRefugeeTable();
     }//GEN-LAST:event_refreshRefugeeTableJButtonActionPerformed
 
+    private void showPhotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPhotoButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = refugeejTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            Refugee refugee = (Refugee) refugeejTable.getValueAt(selectedRow, 0);
+        ImageIcon icon = new ImageIcon(refugee.getPicture());
+            photoLbl.setIcon(icon);}
+    }//GEN-LAST:event_showPhotoButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton createRefugeeButton;
@@ -364,12 +400,14 @@ public class ReliefWorkerWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel photoLbl;
     private javax.swing.JButton refreshRefugeeTableJButton;
     private javax.swing.JButton refreshTestJButton;
     private javax.swing.JTable refugeejTable;
     private javax.swing.JButton requestTestJButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchRefugeeTextField;
+    private javax.swing.JButton showPhotoButton;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables

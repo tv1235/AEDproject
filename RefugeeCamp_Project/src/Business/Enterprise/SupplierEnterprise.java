@@ -11,10 +11,10 @@ import java.util.ArrayList;
  *
  * @author raunak
  */
-public class HospitalEnterprise extends Enterprise{
+public class SupplierEnterprise extends Enterprise{
 
-    public HospitalEnterprise(String name) {
-        super(name, EnterpriseType.Hospital);
+    public SupplierEnterprise(String name) {
+        super(name, EnterpriseType.Supplier);
     }
 
     @Override

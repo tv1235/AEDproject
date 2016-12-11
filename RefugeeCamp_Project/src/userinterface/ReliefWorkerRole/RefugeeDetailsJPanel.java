@@ -13,6 +13,7 @@ import Business.Refugees.Refugee;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -70,10 +71,17 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         resetjButton = new javax.swing.JButton();
         uploadPhotoLbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        resetjButton1 = new javax.swing.JButton();
+        backjButton = new javax.swing.JButton();
+        photoLbl = new javax.swing.JLabel();
 
         uploadPhotoTextField.setToolTipText("enter filepath");
+        uploadPhotoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadPhotoTextFieldActionPerformed(evt);
+            }
+        });
 
+        uploadPhotoBtn.setBackground(new java.awt.Color(248, 249, 249));
         uploadPhotoBtn.setText("Browse ");
         uploadPhotoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +138,7 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         buttonGroup1.add(femalejRadioButton);
         femalejRadioButton.setText("Female");
 
+        addRefugeejButton.setBackground(new java.awt.Color(248, 249, 249));
         addRefugeejButton.setText("Add Refugee");
         addRefugeejButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +146,7 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
             }
         });
 
+        resetjButton.setBackground(new java.awt.Color(248, 249, 249));
         resetjButton.setText("Reset");
         resetjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,10 +159,11 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("Refugee Details");
 
-        resetjButton1.setText("Back");
-        resetjButton1.addActionListener(new java.awt.event.ActionListener() {
+        backjButton.setBackground(new java.awt.Color(248, 249, 249));
+        backjButton.setText("Back");
+        backjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetjButton1ActionPerformed(evt);
+                backjButtonActionPerformed(evt);
             }
         });
 
@@ -163,92 +174,101 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resetjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(addRefugeejButton)
-                                        .addGap(353, 353, 353)
-                                        .addComponent(resetjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(backjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(streetAddressLbl2)
-                                                .addComponent(streetAddressLbl5)
-                                                .addComponent(streetAddressLbl6)
-                                                .addComponent(streetAddressLbl4)
-                                                .addComponent(streetAddressLbl3)
-                                                .addComponent(streetAddressLbl1))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(AccomodationjCheckBox)
-                                                .addComponent(medicalAttentionCheckBox)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(maleJRadioButton)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(femalejRadioButton))
-                                                .addComponent(PhysicallychallengedCheckBox)
-                                                .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(countryOriginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(uploadPhotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(lastNameLbl)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(12, 12, 12))
+                                            .addComponent(addRefugeejButton)
+                                            .addGap(353, 353, 353)
+                                            .addComponent(resetjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(streetAddressLbl2)
+                                                    .addComponent(streetAddressLbl5)
+                                                    .addComponent(streetAddressLbl6)
+                                                    .addComponent(streetAddressLbl4)
+                                                    .addComponent(streetAddressLbl3)
+                                                    .addComponent(streetAddressLbl1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(AccomodationjCheckBox)
+                                                    .addComponent(medicalAttentionCheckBox)
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(maleJRadioButton)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(femalejRadioButton))
+                                                    .addComponent(PhysicallychallengedCheckBox)
+                                                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(countryOriginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(uploadPhotoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(lastNameLbl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(12, 12, 12))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(uploadPhotoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(uploadPhotoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(uploadPhotoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(uploadPhotoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(373, 373, 373))))
-                .addGap(0, 168, Short.MAX_VALUE))
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(373, 373, 373)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(photoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastNameLbl)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lastNameLbl)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(PhysicallychallengedCheckBox)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(streetAddressLbl1)
-                                            .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(15, 15, 15)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(countryOriginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(streetAddressLbl2))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(maleJRadioButton)
-                                            .addComponent(femalejRadioButton))
-                                        .addGap(30, 30, 30)))
+                                            .addComponent(PhysicallychallengedCheckBox)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(streetAddressLbl1)
+                                                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(15, 15, 15)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(countryOriginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(streetAddressLbl2))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(maleJRadioButton)
+                                                    .addComponent(femalejRadioButton))
+                                                .addGap(30, 30, 30)))
+                                        .addGap(30, 30, 30))
+                                    .addComponent(medicalAttentionCheckBox))
                                 .addGap(30, 30, 30))
-                            .addComponent(medicalAttentionCheckBox))
-                        .addGap(30, 30, 30))
-                    .addComponent(AccomodationjCheckBox)
+                            .addComponent(AccomodationjCheckBox)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(streetAddressLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(streetAddressLbl5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(streetAddressLbl6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(streetAddressLbl4))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(streetAddressLbl3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(streetAddressLbl5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(streetAddressLbl6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(streetAddressLbl4)))
+                        .addGap(5, 5, 5)
+                        .addComponent(photoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,7 +280,7 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
                     .addComponent(addRefugeejButton)
                     .addComponent(resetjButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(resetjButton1)
+                .addComponent(backjButton)
                 .addContainerGap())
         );
 
@@ -268,17 +288,15 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(0, 60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(0, 79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -289,8 +307,9 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         File f=chooser.getSelectedFile();
         String filename=f.getAbsolutePath();
         uploadPhotoTextField.setText(filename);
-        refugee.setPicture(filename);
-
+       try { refugee.setPicture(filename);
+       } catch (NullPointerException e) {
+        }
     }//GEN-LAST:event_uploadPhotoBtnActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
@@ -320,6 +339,7 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
             refugee.setName(nameTextField.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Enter refugee name", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (ageTextField != null && !ageTextField.getText().trim().isEmpty()) {
             Integer age = Integer.parseInt(ageTextField.getText());
@@ -327,32 +347,36 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
                 refugee.setAge(age);
             } else {
                 JOptionPane.showMessageDialog(null, "Enter correct Age[0-120]", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         } else {
             JOptionPane.showMessageDialog(null, "Enter valid age", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (countryOriginTextField != null && !countryOriginTextField.getText().trim().isEmpty()) {
             refugee.setOriginCountry(countryOriginTextField.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Enter Country of Origin", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (maleJRadioButton.isSelected() || femalejRadioButton.isSelected()) {
             refugee.setSex(maleJRadioButton.isSelected());
         } else {
             JOptionPane.showMessageDialog(null, "Select Sex", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
         }
 
         refugee.setPhysicallyChallenged(PhysicallychallengedCheckBox.isSelected());
         refugee.setNeedsMedicalAttn(medicalAttentionCheckBox.isSelected());
         refugee.setHasAccomodation(AccomodationjCheckBox.isSelected());
         this.enterprise.getRefugeeDirectory().createRefugee(refugee);
-        /*ImageIcon icon = new ImageIcon(refugee.getPicture());
-        photoLbl.setIcon(icon);*/
+        refugee.setPicture(uploadPhotoTextField.getText());
 
-        JOptionPane.showConfirmDialog(null, "New Refugee is added");
+        JOptionPane.showMessageDialog(null, "New Refugee is added");
         nameTextField.setText("");
         ageTextField.setText("");
         countryOriginTextField.setText("");
+        uploadPhotoTextField.setText("");
         buttonGroup1.clearSelection();
         PhysicallychallengedCheckBox.setSelected(false);
         AccomodationjCheckBox.setSelected(false);
@@ -364,19 +388,26 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
         nameTextField.setText("");
         ageTextField.setText("");
         countryOriginTextField.setText("");
+        uploadPhotoTextField.setText("");
         buttonGroup1.clearSelection();
         PhysicallychallengedCheckBox.setSelected(false);
         AccomodationjCheckBox.setSelected(false);
         medicalAttentionCheckBox.setSelected(false);
+        
+        
     }//GEN-LAST:event_resetjButtonActionPerformed
 
-    private void resetjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetjButton1ActionPerformed
+    private void backjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButtonActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("ReliefWorkerWorkAreaJPanel", new ReliefWorkerWorkAreaJPanel(userProcessContainer, userAccount, (ReliefWorkerOrganization) organization, enterprise));
         layout.next(userProcessContainer);
 
-    }//GEN-LAST:event_resetjButton1ActionPerformed
+    }//GEN-LAST:event_backjButtonActionPerformed
+
+    private void uploadPhotoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_uploadPhotoTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -384,6 +415,7 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox PhysicallychallengedCheckBox;
     private javax.swing.JButton addRefugeejButton;
     private javax.swing.JTextField ageTextField;
+    private javax.swing.JButton backjButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField countryOriginTextField;
     private javax.swing.JRadioButton femalejRadioButton;
@@ -393,8 +425,8 @@ public class RefugeeDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton maleJRadioButton;
     private javax.swing.JCheckBox medicalAttentionCheckBox;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel photoLbl;
     private javax.swing.JButton resetjButton;
-    private javax.swing.JButton resetjButton1;
     private javax.swing.JLabel streetAddressLbl1;
     private javax.swing.JLabel streetAddressLbl2;
     private javax.swing.JLabel streetAddressLbl3;

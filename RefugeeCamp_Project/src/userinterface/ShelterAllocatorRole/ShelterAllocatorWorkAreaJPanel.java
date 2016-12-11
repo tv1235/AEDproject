@@ -6,8 +6,9 @@
 package userinterface.ShelterAllocatorRole;
 
 
-import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.RefugeeCampEnterprise;
+import Business.Network.Network;
 
 import Business.Organization.Organization;
 import Business.Organization.ShelterOrganization;
@@ -15,6 +16,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.ShelterAllocationWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,17 +29,19 @@ public class ShelterAllocatorWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private  ShelterOrganization organisation;
+    private Network network;
     
     
     /**
      * Creates new form FoodWorkerWorkAreaJPanel
      */
-    public ShelterAllocatorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public ShelterAllocatorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.enterprise = enterprise;
         this.organisation = (ShelterOrganization)organization;
+        this.network = network;
         
         populateTable();
         //To change body of generated methods, choose Tools | Templates.
@@ -72,6 +76,7 @@ public void populateTable(){
         assignJButton = new javax.swing.JButton();
         processJButton = new javax.swing.JButton();
         refreshJButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -105,6 +110,7 @@ public void populateTable(){
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 58, 375, 96));
 
+        assignJButton.setBackground(new java.awt.Color(248, 249, 249));
         assignJButton.setText("Assign to me");
         assignJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +119,7 @@ public void populateTable(){
         });
         jPanel1.add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
 
+        processJButton.setBackground(new java.awt.Color(248, 249, 249));
         processJButton.setText("Process");
         processJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +128,7 @@ public void populateTable(){
         });
         jPanel1.add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, -1));
 
+        refreshJButton.setBackground(new java.awt.Color(248, 249, 249));
         refreshJButton.setText("Refresh");
         refreshJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,25 +137,22 @@ public void populateTable(){
         });
         jPanel1.add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 26, -1, -1));
 
+        jLabel1.setText("Shelter Allocator:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -160,6 +165,11 @@ public void populateTable(){
         }
 
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getStatus().equalsIgnoreCase("completed") || request.getStatus().equalsIgnoreCase("Supplier -> Inventory")) {
+            JOptionPane.showMessageDialog(null, "Request already processed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        request.getSubscribedEmails().add(userAccount.getEmail());
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
@@ -175,10 +185,26 @@ public void populateTable(){
         }
 
         ShelterAllocationWorkRequest request = (ShelterAllocationWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+         if (request.getStatus().equalsIgnoreCase("completed") || request.getStatus().equalsIgnoreCase("Supplier -> Inventory")) {
+            JOptionPane.showMessageDialog(null, "Request already processed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         request.setReceiver(userAccount);
         request.setStatus("Processing");
+        
+        RefugeeCampEnterprise refugeeEnterprise = null;
+        for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
+            if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.RefugeeCamp)) {
+                refugeeEnterprise = (RefugeeCampEnterprise) e;
+                break;
+            }
+        }
+        if (refugeeEnterprise == null) {
+            JOptionPane.showMessageDialog(null, "Refugee Camp Enterprise is not available", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, organisation, enterprise, request);
+        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, organisation, refugeeEnterprise, request);
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -192,6 +218,7 @@ public void populateTable(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignJButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton processJButton;

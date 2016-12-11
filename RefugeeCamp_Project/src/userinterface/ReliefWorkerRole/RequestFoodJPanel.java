@@ -4,14 +4,15 @@
  */
 package userinterface.ReliefWorkerRole;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Organization.FoodOrganization;
 import Business.Organization.InventoryManagerOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.FoodSupplyWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -24,18 +25,24 @@ public class RequestFoodJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Organization organization;
     private UserAccount userAccount;
+    private WorkRequest request;
 
     /**
      * Creates new form RequestSupplyJPanel
      */
-    public RequestFoodJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public RequestFoodJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, WorkRequest request) {
         initComponents();
 
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = account;
         this.organization = organization;
+        this.request = request;
         valueLabel.setText(enterprise.getName());
+        if (request != null) {
+            RefugeeIDJTextField.setText(request.getRefugeeIds());
+            countJTextField.setText("" + request.getCount());
+        }
     }
 
     /**
@@ -63,27 +70,29 @@ public class RequestFoodJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         requestTestJButton.setText("Create Request");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
+        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         jLabel1.setText("Refugee IDs:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 160, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 90, -1));
 
         RefugeeIDJTextField.setEnabled(false);
         add(RefugeeIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 120, -1));
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
 
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 130, -1));
@@ -95,16 +104,18 @@ public class RequestFoodJPanel extends javax.swing.JPanel {
         jLabel2.setText("Food Request");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
-        jLabel3.setText("Required No of Meals:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 160, -1));
+        jLabel3.setText("Count:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 50, -1));
 
+        countJTextField.setEnabled(false);
         countJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 countJTextFieldActionPerformed(evt);
             }
         });
-        add(countJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, -1));
+        add(countJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 120, -1));
 
+        searchRefugee.setBackground(new java.awt.Color(248, 249, 249));
         searchRefugee.setText("Search");
         searchRefugee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,42 +124,44 @@ public class RequestFoodJPanel extends javax.swing.JPanel {
         });
         add(searchRefugee, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 110, -1));
 
-        jLabel4.setText("Description");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 160, -1));
+        jLabel4.setText("Description:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 90, -1));
 
         descJTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descJTextField1ActionPerformed(evt);
             }
         });
-        add(descJTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 120, -1));
+        add(descJTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
 
-        String requiredMeals = countJTextField.getText();
+        /*String requiredMeals = countJTextField.getText();
         int count = 0;
         if (!requiredMeals.trim().isEmpty()) {
             count = Integer.parseInt(requiredMeals) <= 0 ? 0 : Integer.parseInt(requiredMeals);
+        }*/
+        if (request == null) {
+            JOptionPane.showMessageDialog(null, "Search and add refugee Ids", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         String message = descJTextField1.getText();
-        WorkRequest request = null;
         Organization org = null;
-        request = new FoodSupplyWorkRequest();
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             if (organization instanceof InventoryManagerOrganization) {
                 org = organization;
                 break;
             }
         }
-
+        request.getSubscribedEmails().add(userAccount.getEmail());
         request.setMessage(message);
         request.setSender(userAccount);
         request.setStatus("Sent");
-        request.setCount(count);
         if (org != null) {
             org.getWorkQueue().getWorkRequestList().add(request);
+            EcoSystem.sendmail(userAccount.getEmail(), message+"-" +request.getStatus());
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
 
@@ -165,7 +178,9 @@ public class RequestFoodJPanel extends javax.swing.JPanel {
     private void searchRefugeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRefugeeActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise));
+        WorkRequest foodRequest = new FoodSupplyWorkRequest();
+        foodRequest.setRefugeeIds("");
+        userProcessContainer.add("SearchRefugeeJPanel", new SearchRefugeeJPanel(userProcessContainer, userAccount, organization, enterprise, foodRequest));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_searchRefugeeActionPerformed
 

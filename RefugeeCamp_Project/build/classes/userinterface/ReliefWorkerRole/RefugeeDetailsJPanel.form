@@ -20,19 +20,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="56" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="79" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,64 +44,71 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="resetjButton1" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="addRefugeejButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="353" max="-2" attributes="0"/>
-                                          <Component id="resetjButton" min="-2" pref="70" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="streetAddressLbl2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="streetAddressLbl5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="streetAddressLbl6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="streetAddressLbl4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="streetAddressLbl3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="streetAddressLbl1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="AccomodationjCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="medicalAttentionCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="maleJRadioButton" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="femalejRadioButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="backjButton" min="-2" pref="70" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="addRefugeejButton" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="353" max="-2" attributes="0"/>
+                                              <Component id="resetjButton" min="-2" pref="70" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="streetAddressLbl2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl1" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="PhysicallychallengedCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="ageTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="countryOriginTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                                  <Component id="uploadPhotoTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="AccomodationjCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="medicalAttentionCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="maleJRadioButton" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="femalejRadioButton" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="PhysicallychallengedCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="ageTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="countryOriginTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                                      <Component id="uploadPhotoTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="lastNameLbl" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="nameTextField" min="-2" pref="200" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lastNameLbl" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="nameTextField" min="-2" pref="200" max="-2" attributes="0"/>
-                                          </Group>
                                       </Group>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="uploadPhotoLbl" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="uploadPhotoBtn" min="-2" pref="91" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="uploadPhotoLbl" min="-2" pref="109" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="uploadPhotoBtn" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="373" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" pref="161" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="373" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <Component id="photoLbl" min="-2" pref="150" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="168" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -112,51 +117,58 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lastNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lastNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="PhysicallychallengedCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="streetAddressLbl1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="ageTextField" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="countryOriginTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="streetAddressLbl2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="maleJRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="femalejRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="PhysicallychallengedCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="streetAddressLbl1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="ageTextField" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="countryOriginTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="streetAddressLbl2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="maleJRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="femalejRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="medicalAttentionCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="medicalAttentionCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="AccomodationjCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="streetAddressLbl3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="streetAddressLbl5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="streetAddressLbl6" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="streetAddressLbl4" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="AccomodationjCheckBox" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="streetAddressLbl3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="streetAddressLbl5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="streetAddressLbl6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="streetAddressLbl4" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="photoLbl" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -173,7 +185,7 @@
                       <Component id="resetjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="112" max="32767" attributes="0"/>
-                  <Component id="resetjButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="backjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -184,9 +196,15 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="enter filepath"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadPhotoTextFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="uploadPhotoBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f9" green="f9" red="f8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Browse "/>
           </Properties>
           <Events>
@@ -274,6 +292,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="addRefugeejButton">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f9" green="f9" red="f8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Add Refugee"/>
           </Properties>
           <Events>
@@ -282,6 +303,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="resetjButton">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f9" green="f9" red="f8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
           <Events>
@@ -301,13 +325,18 @@
             <Property name="text" type="java.lang.String" value="Refugee Details"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="resetjButton1">
+        <Component class="javax.swing.JButton" name="backjButton">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f9" green="f9" red="f8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetjButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backjButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="photoLbl">
         </Component>
       </SubComponents>
     </Container>

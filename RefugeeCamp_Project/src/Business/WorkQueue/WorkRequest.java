@@ -5,6 +5,7 @@
 package Business.WorkQueue;
 
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -20,6 +21,16 @@ public abstract class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private int count;
+    private String refugeeIds;
+    private ArrayList<String> subscribedEmails;
+
+    public String getRefugeeIds() {
+        return refugeeIds;
+    }
+
+    public void setRefugeeIds(String refugeeIds) {
+        this.refugeeIds = refugeeIds;
+    }
 
     public int getCount() {
         return count;
@@ -31,8 +42,19 @@ public abstract class WorkRequest {
     
     public WorkRequest(){
         requestDate = new Date();
+        subscribedEmails = new ArrayList<>();
     }
 
+    public ArrayList<String> getSubscribedEmails() {
+        return subscribedEmails;
+    }
+
+    public void setSubscribedEmails(ArrayList<String> subscribedEmails) {
+        this.subscribedEmails = subscribedEmails;
+    }
+
+    
+    
     public String getMessage() {
         return message;
     }

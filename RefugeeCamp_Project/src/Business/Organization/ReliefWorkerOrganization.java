@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ReliefWorkerOrganization extends Organization{
 
     public ReliefWorkerOrganization() {
-        super(Organization.Type.ReliefWorkerOrg.getValue());
+        super(Organization.Type.ReliefWorkerOrganization.getValue());
     }
     
     @Override

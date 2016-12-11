@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ShelterOrganization extends Organization{
 
     public ShelterOrganization() {
-        super(Organization.Type.ShelterOrg.getValue());
+        super(Organization.Type.ShelterOrganization.getValue());
     }
 
     @Override

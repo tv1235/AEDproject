@@ -78,6 +78,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="manageNetworkJButton">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="f8" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manage Network"/>
               </Properties>
               <Events>
@@ -86,6 +89,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="manageAdminJButton">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="f8" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manage Enterprise Admin"/>
               </Properties>
               <Events>
@@ -94,6 +100,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="manageEnterpriseJButton">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="f8" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manage Enterprise"/>
               </Properties>
               <Events>

@@ -33,6 +33,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="userJButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f9" green="f9" red="f8" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Manage User"/>
       </Properties>
       <Events>
@@ -46,6 +49,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageEmployeeJButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f9" green="f9" red="f8" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Manage Employee"/>
       </Properties>
       <Events>
@@ -59,6 +65,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageOrganizationJButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f9" green="f9" red="f8" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Manage Organization"/>
       </Properties>
       <Events>

@@ -8,13 +8,15 @@ package userinterface.ReliefWorkerRole;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.RefugeeCampEnterprise;
 import Business.Organization.Organization;
-import Business.Organization.ReliefWorkerOrganization;
 import Business.Refugees.Refugee;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FoodSupplyWorkRequest;
+import Business.WorkQueue.MedicalSupplyWorkRequest;
+import Business.WorkQueue.ShelterAllocationWorkRequest;
 import Business.WorkQueue.WorkRequest;
-import java.util.ArrayList;
+import com.sun.xml.internal.ws.util.StringUtils;
+import java.awt.CardLayout;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,23 +27,28 @@ import javax.swing.table.DefaultTableModel;
  * @author vignesh
  */
 public class SearchRefugeeJPanel extends javax.swing.JPanel {
+
     private JPanel userProcessContainer;
     private Organization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
     private Set<Integer> refugeeIds;
+    private WorkRequest request;
+
     /**
      * Creates new form SearchRefugee
      */
-    public SearchRefugeeJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public SearchRefugeeJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, WorkRequest request) {
         initComponents();
-          this.userProcessContainer = userProcessContainer;
+        this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.enterprise = (RefugeeCampEnterprise) enterprise;
         this.userAccount = account;
+        this.request = request;
         refugeeIds = new HashSet<Integer>();
         populateRefugeeTable();
     }
+
     public void populateRefugeeTable() {
 
         DefaultTableModel model = (DefaultTableModel) refugeejTable.getModel();
@@ -49,13 +56,14 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (Refugee refugee : enterprise.getRefugeeDirectory().getRefugeeList()) {
-                Object row[] = new Object[3];
-                row[0] = refugee;
-                row[1] = refugee.getName();
-                row[2] = refugee.getAge();
-                ((DefaultTableModel) refugeejTable.getModel()).addRow(row);
+            Object row[] = new Object[3];
+            row[0] = refugee;
+            row[1] = refugee.getName();
+            row[2] = refugee.getAge();
+            ((DefaultTableModel) refugeejTable.getModel()).addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +85,7 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         removeButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
 
+        searchButton.setBackground(new java.awt.Color(248, 249, 249));
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +111,7 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(refugeejTable);
 
+        addButton.setBackground(new java.awt.Color(248, 249, 249));
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +129,7 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(selectedRefugeejTable);
 
+        removeButton.setBackground(new java.awt.Color(248, 249, 249));
         removeButton.setText("Remove");
         removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +137,7 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
             }
         });
 
+        nextButton.setBackground(new java.awt.Color(248, 249, 249));
         nextButton.setText("Next");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +222,31 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
+
+        StringBuilder rIds = new StringBuilder();
+        String prefix = "";
+        for (int id: refugeeIds){
+            rIds.append(prefix);
+            prefix = ",";
+            rIds.append(id);
+        }
+        request.setRefugeeIds(rIds.toString());
+        request.setCount(refugeeIds.size());
         
+        if (request instanceof FoodSupplyWorkRequest) {
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("RequestFoodJPanel", new RequestFoodJPanel(userProcessContainer, userAccount, organization, enterprise, request));
+            layout.next(userProcessContainer);
+        } else if (request instanceof ShelterAllocationWorkRequest) {
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("RequestShelterJPanel", new RequestShelterJPanel(userProcessContainer, userAccount, organization, enterprise, request));
+            layout.next(userProcessContainer);
+        } else if (request instanceof MedicalSupplyWorkRequest) {
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("RequestMedicalJPanel", new RequestMedicalJPanel(userProcessContainer, userAccount, organization, enterprise, request));
+            layout.next(userProcessContainer);
+        }
+
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -233,28 +269,26 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Enter refugee name", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         int selectedRow = refugeejTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "select a row first", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        
-        Refugee refugee = (Refugee)refugeejTable.getValueAt(selectedRow, 0);
-        
-        if(refugeeIds.contains(refugee.getId())){
+        Refugee refugee = (Refugee) refugeejTable.getValueAt(selectedRow, 0);
+
+        if (refugeeIds.contains(refugee.getId())) {
             JOptionPane.showMessageDialog(null, "already added", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) selectedRefugeejTable.getModel();
         Object row[] = new Object[3];
         row[0] = refugee;
@@ -263,23 +297,24 @@ public class SearchRefugeeJPanel extends javax.swing.JPanel {
         ((DefaultTableModel) selectedRefugeejTable.getModel()).addRow(row);
         refugeeIds.add(refugee.getId());
         
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
         int selectedRow = selectedRefugeejTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "select a row first", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Refugee refugee = (Refugee)selectedRefugeejTable.getValueAt(selectedRow, 0);
-        
+        Refugee refugee = (Refugee) selectedRefugeejTable.getValueAt(selectedRow, 0);
+
         refugeeIds.remove(refugee.getId());
         DefaultTableModel model = (DefaultTableModel) selectedRefugeejTable.getModel();
         ((DefaultTableModel) selectedRefugeejTable.getModel()).removeRow(selectedRow);
-        
+
     }//GEN-LAST:event_removeButtonActionPerformed
 
 

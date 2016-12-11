@@ -5,6 +5,7 @@
 package userinterface.InventoryManagerRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Organization.FoodOrganization;
 import Business.Organization.MedicalOrganization;
 import Business.Organization.Organization;
@@ -29,7 +30,7 @@ public class InventoryRequestSupplyJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Organization organization;
     private UserAccount userAccount;
-    private WorkRequest workRequest;
+    private Network network;
 
     /**
      * Creates new form RequestSupplyJPanel
@@ -41,7 +42,7 @@ public class InventoryRequestSupplyJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         this.organization = organization;
-        this.workRequest = workRequest;
+        //this.network = network;
         valueLabel.setText(enterprise.getName());
         foodLabel.setVisible(false);
         foodTextField.setVisible(false);
@@ -78,6 +79,7 @@ public class InventoryRequestSupplyJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        requestTestJButton.setBackground(new java.awt.Color(248, 249, 249));
         requestTestJButton.setText("Place Request");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,13 +88,14 @@ public class InventoryRequestSupplyJPanel extends javax.swing.JPanel {
         });
         add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
 
+        backJButton.setBackground(new java.awt.Color(248, 249, 249));
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, -1, 30));
 
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 130, -1));

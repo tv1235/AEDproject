@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class InventoryManagerOrganization extends Organization{
 
     public InventoryManagerOrganization() {
-        super(Organization.Type.InventoryManagerOrg.getValue());
+        super(Organization.Type.InventoryManagerOrganization.getValue());
     }
     
     @Override
